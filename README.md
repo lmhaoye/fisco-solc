@@ -24,7 +24,7 @@ fisco-solc是FISCO-BCOS的智能合约编译器。fisco-solc对以太坊的solc�
 **拓展的功能：**
 
 - **[EthCall](https://github.com/FISCO-BCOS/FISCO-BCOS/blob/master/doc/EthCall%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3.md)**
-- **为了适配[国密版FISCO-BCOS](http://git.weoa.com/yujiechen/cpp-ethereum/blob/fisco-bcos-dev-1.3.0/doc/%E5%9B%BD%E5%AF%86%E6%93%8D%E4%BD%9C%E6%96%87%E6%A1%A3.md)增加国密版fisco-solc编译器，并通过开关ENCRYPTTYPE控制fisco-solc版本**
+- **为了适配[国密版FISCO-BCOS](https://github.com/FISCO-BCOS/FISCO-BCOS/blob/master/doc/%E5%9B%BD%E5%AF%86%E6%93%8D%E4%BD%9C%E6%96%87%E6%A1%A3.md)增加国密版fisco-solc编译器，并通过开关ENCRYPTTYPE控制fisco-solc版本**
 
 ## 1、功能拓展说明
 
@@ -56,8 +56,7 @@ ORIGIN,              ///< get execution origination address
 
 <br>
 
-[国密版FISCO-BCOS](http://git.weoa.com/yujiechen/cpp-ethereum/blob/fisco-bcos-dev-1.3.0/doc/%E5%9B%BD%E5%AF%86%E6%93%8D%E4%BD%9C%E6%96%87%E6%A1%A3.md) 更新SHA3算法为符合国密标准的SM3算法，**国密版fisco-solc主要用于兼容[国密版FISCO-BCOS](TODO)，可编译出与国密版FISCO-BCOS相匹配的abi和bin文件，当向国密版FISCO-BCOS链上发送交易时，交易对应的合约代码必须由国密版fisco-solc编译**。
-通过ENCRYPTTYPE控制fisco-solc版本（由于[国密版fisco-solc目前不支持用nodejs发交易](http://git.weoa.com/ttip/cpp-ethereum/blob/fisco-bcos-dev-1.3.0/doc/%E5%9B%BD%E5%AF%86%E6%93%8D%E4%BD%9C%E6%96%87%E6%A1%A3.md)，目前国密版fisco-solc主要用于[开发web3sdk客户端应用时，将sol转换为java代码过程中](http://git.weoa.com/yujiechen/web3sdk/blob/fisco-web3sdk-dev-new/doc/guomi_support_manual.md#6-%E7%94%9F%E6%88%90%E6%94%AF%E6%8C%81%E5%9B%BD%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84java%E4%BB%A3%E7%A0%81)）：
+[国密版FISCO-BCOS](https://github.com/FISCO-BCOS/FISCO-BCOS/blob/master/doc/%E5%9B%BD%E5%AF%86%E6%93%8D%E4%BD%9C%E6%96%87%E6%A1%A3.md) 更新SHA3算法为符合国密标准的SM3算法，**国密版fisco-solc主要用于兼容[国密版FISCO-BCOS](https://github.com/FISCO-BCOS/FISCO-BCOS/blob/master/doc/%E5%9B%BD%E5%AF%86%E6%93%8D%E4%BD%9C%E6%96%87%E6%A1%A3.md)，可编译出与国密版FISCO-BCOS相匹配的abi和bin文件，当向国密版FISCO-BCOS链上发送交易时，交易对应的合约代码必须由国密版fisco-solc编译**。
 
 - **国密版fisco-solc:** 当开关ENCRYPTTYPE为ON时，编译出的fisco-solc为国密版fisco-solc;
 
@@ -74,7 +73,7 @@ ORIGIN,              ///< get execution origination address
 
 [fisco-solc的可执行文件已经在根目录中提供](https://github.com/FISCO-BCOS/fisco-solc)，可直接下载使用，此处提供直接下载使用的方法。若需要手动编译，可参考本文第三部分：[3、编译方法](#3-编译方法)。
 
-> 根据系统和FISCO-BCOS版本(当FISCO-BCOS为国密版时，为了保证[web3sdk生成代码的兼容性](http://git.weoa.com/yujiechen/web3sdk/blob/fisco-web3sdk-dev-new/doc/guomi_support_manual.md#6-%E7%94%9F%E6%88%90%E6%94%AF%E6%8C%81%E5%9B%BD%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84java%E4%BB%A3%E7%A0%81)，需要同时下载国密版fisco-solc和普通版fisco-solc)，点击下载相应的fisco-solc：
+> 根据系统和FISCO-BCOS版本(当FISCO-BCOS为国密版时，为了保证[web3sdk生成代码的兼容性](https://github.com/FISCO-BCOS/web3sdk/blob/master/doc/guomi_support_manual.md#6-%E7%94%9F%E6%88%90%E6%94%AF%E6%8C%81%E5%9B%BD%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84java%E4%BB%A3%E7%A0%81)，需要同时下载国密版fisco-solc-guomi和普通版fisco-solc)，点击下载相应的fisco-solc：
 
 <br>
 
@@ -282,17 +281,17 @@ Based on solc version: 0.4.11+commit.68ef5810.Linux.g++
 
 （3）在fisco-solc-master中新建build文件夹，进入build文件夹，打开cmd，执行命令，进行编译
 
-- **编译产生普通版fisco-solc(编译时，加上-DENCRYPTTYPE=ON选项)**
+- **编译产生普通版fisco-solc**
 
-``` powershell
-cmake -DENCRYPTTYPE=ON -G "Visual Studio 14 2015 Win64" ..
+``` bash
+cmake -DENCRYPTTYPE=OFF -G "Visual Studio 14 2015 Win64" ..
 cmake --build . --config RelWithDebInfo
 ```
 
-- **编译产生国密版fisco-solc**
+- **编译产生国密版fisco-solc(编译时，加上-DENCRYPTTYPE=ON选项)**
 
 ```bash
-cmake --G "Visual Studio 14 2015 Win64" ..
+cmake -DENCRYPTTYPE=ON -G "Visual Studio 14 2015 Win64" ..
 cmake --build . --config RelWithDebInfo
 ```
 
